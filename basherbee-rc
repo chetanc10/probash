@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Improve history file storage capability
+export HISTSIZE=5000
+export HISTFILESIZE=10000
+
+# Disable bell sound from 'less' and it's associated/wrapper cmds (like 'man')
+export LESS="$LESS -Q"
+
+# key-map to invoke "vim ."
+bind -x '"\C-n":"[ -f Session.vim ] && vim -S Session.vim || vim ."'
+
+dedup_lines ()
+{
+	tac "$1" | awk '!visited[$0]++' | tac > /tmp/nbh
+	mv /tmp/nbh "$1"
+}
+
+# Deduplicate ~/.bash_history per session in background!
+dedup_lines ~/.bash_history &
+
+# Simplify normal user prompt string
+PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
+export PS1="\[\e[38;2;255;165;0m\]\${debian_chroot:+(\$debian_chroot)}\W\$ \[\e[0m\]"
+
+# function to set terminal title
+tname()
+{
+	[[ -z "$1" ]] && return
+	[[ -z "$ORIG" ]] && ORIG="$PS1"
+	TITLE="\[\e]2;$*\a\]"
+	PS1="${ORIG}${TITLE}"
+}
+
+# For better color-coding and visibility of 'ls' output contents #
+export LS_COLORS="$LS_COLORS:ow=30;42:tw=30;42:";
+
+# ls display file size as human-readable size
+alias lh='ls -lh'

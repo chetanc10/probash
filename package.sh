@@ -1,0 +1,1 @@
+BINS=naping:procwait
