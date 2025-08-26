@@ -8,7 +8,7 @@ export HISTFILESIZE=10000
 export LESS="$LESS -Q"
 
 # key-map to invoke "vim ."
-bind -x '"\C-n":"[ -f Session.vim ] && vim -S Session.vim || vim ."'
+bind -x '"\C-o":"[ -f Session.vim ] && vim -S Session.vim || vim ."'
 
 dedup_lines ()
 {
