@@ -7,9 +7,6 @@ export HISTFILESIZE=10000
 # Disable bell sound from 'less' and it's associated/wrapper cmds (like 'man')
 export LESS="$LESS -Q"
 
-# key-map to invoke "vim ."
-bind -x '"\C-o":"[ -f Session.vim ] && vim -S Session.vim || vim ."'
-
 dedup_lines ()
 {
 	tac "$1" | awk '!visited[$0]++' | tac > /tmp/nbh
