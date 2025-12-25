@@ -1,1 +1,1 @@
-BINS=naping:procwait
+BINS=naping:procwait:dedup
